@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f7f7f7;
+        }
+
+        .card {
+            text-align: center;
+            padding: 40px; /* Aumenta el espacio interno del contenedor */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            border-radius: 50%;
+            animation: fall 1s linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        img {
+            width: 500px; /* Ajusta el ancho de la imagen según tus preferencias */
+            height: auto; /* Mantiene la proporción original */
+            margin-top: 40px; /* Agrega un espacio entre el texto y la imagen */
+        }
+    </style>
+    <title>Feliz Cumpleaños</title>
+</head>
+<body>
+    <div class="confetti-container" id="confetti-container"></div>
+    <div class="card">
+        <h1>Feliz Cumpleaños Mi Amor</h1>
+        <p>¡Que tengas un día lleno de alegría y felicidad!
+            <br> 
+            <br>
+            De tu Amor ... Omar 🥰🥰
+            <br>
+            Que este anio todos los disenios sean Hermosos... como tu mi Amor 💖💖
+        </p>
+        
+        <br>
+        <br>
+        <button onclick="lanzarConfeti()">Cuantos años cumples?</button>
+        <p id="edad"> 0 años</p>
+    </div>
+    <script>
+        let edad = 0;
+
+        function lanzarConfeti() {
+            const confettiContainer = document.getElementById('confetti-container');
+            const confettiCount = 100;
+
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = getRandomColor();
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.animationDuration = `${Math.random() * 2 + 1}s`;
+
+                confettiContainer.appendChild(confetti);
+
+                confetti.addEventListener('animationend', () => {
+                    confetti.remove();
+                });
+            }
+
+            // Incrementar la edad y mostrar el mensaje
+            edad++;
+            document.getElementById('edad').innerText = `Edad: ${edad} ${edad === 1 ? 'año' : 'años'}`;
+
+            // Verificar si la edad es igual a 19 para limpiar la pantalla y mostrar la imagen
+            if (edad === 19) {
+                limpiarPantalla();
+            }
+        }
+
+        function limpiarPantalla() {
+            document.body.innerHTML = ''; // Limpiar todo el contenido del body
+
+            const imagen = document.createElement('img');
+            imagen.src = 'Imagenes/Formal.jpeg'; // Cambia 'ruta/a/la/imagen.jpg' por la ruta de tu imagen
+            document.body.appendChild(imagen);
+            window.location.href = "Historias/Fotos.html";
+        }
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    </script>
+</body>
+</html>
